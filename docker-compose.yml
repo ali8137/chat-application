@@ -1,0 +1,32 @@
+services:
+  mongo:
+  # the name of the above service must be "mongo" and not "mongodb"
+    image: mongo:7.0.12-rc1
+    # fixed image tag to avoid future potential incompatibility with absence of maintainability
+    container_name: mongo_db
+    ports:
+      - 27017:27017
+    # persisting data across separate runs:
+    volumes:
+      - mongo:/data
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_DB_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_DB_PASSWORD}
+  mongo-express:
+    image: mongo-express:1.0.2-18-alpine3.18
+    container_name: mongo_express
+    restart: always
+    ports:
+      - 8081:8081
+    environment:
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=${MONGO_DB_USERNAME}
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=${MONGO_DB_PASSWORD}
+      - ME_CONFIG_MONGODB_SERVER=mongo
+      - ME_CONFIG_BASICAUTH=disabled
+      # the above is to disable basic authentication of mongo-express UI
+    depends_on:
+      - mongo
+
+volumes:
+  # docker-managed volume:
+  mongo: {}

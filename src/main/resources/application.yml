@@ -1,0 +1,33 @@
+spring:
+  application:
+    name: websocket
+  data:
+    mongodb:
+      username: ${MONGO_DB_USERNAME}
+      password: ${MONGO_DB_PASSWORD}
+      host: localhost
+      port: 27017
+      database: chat_app
+      authentication-database: admin
+#      authentication-mechanism: SCRAM-SHA-256
+
+server:
+  port: 8088
+
+#logging:
+#  level:
+#    org:
+#      springframework:
+#        web:
+#          socket: DEBUG
+#          messaging:
+#            simp: DEBUG
+#
+##            the above is for extra debugging level in the console
+
+
+
+#bugs:
+#  wrong websocket config
+#  accidental writing mistake due to AI autocompletion
+#  not expected behavior due to "authentication-database: admin" property
